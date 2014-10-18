@@ -12,33 +12,34 @@
     </head>
     <body>
         <div class="app">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <a href="index.html"><button type="button" class="btn btn-default navbar-btn pull-left"><div class="glyphicon glyphicon-home"></div></button></a>
+                </div>
+            </nav>
             <form id="submission_form">
-            <div class="input-group">
-                <span class="input-group-addon">Group Name</span>
-                <input type="text" class="form-control" placeholder="e.g. Gov 20" name="groupName" />
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">Description</span>
-                <input type="text" class="form-control" placeholder="e.g. Going over Kant reading" name="description" />
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">Open Until</span>
-                <input type="time" class="form-control" placeholder="12:00 AM" name="timeEnd" />
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">Location</span>
-                <input type="text" class="form-control" placeholder="e.g. Lamont" name="location" />
-            </div>
+                <div class="input-group">
+                    <span class="input-group-addon">Group Name</span>
+                    <input type="text" class="form-control" placeholder="e.g. Gov 20" name="groupName" />
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">Description</span>
+                    <input type="text" class="form-control" placeholder="e.g. Going over Kant reading" name="description" />
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">Open Until</span>
+                    <input type="time" class="form-control" placeholder="12:00 AM" name="timeEnd" />
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">Location</span>
+                    <input type="text" class="form-control" placeholder="e.g. Lamont" name="location" />
+                </div>
             </form>
             <button type="submit" class="btn btn-primary" onclick="return submit_to_server()">Submit</button>
-            <br><br><br>
-            <a href="index.html"><button class="btn btn-default btn-small"><div class="glyphicon glyphicon-arrow-left"></div></button></a>
         </div>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/add.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
     </body>
 </html>
