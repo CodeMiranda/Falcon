@@ -19,6 +19,7 @@
 function getListItems() {
     var items = [
         {
+            id: 0,
             name: 'Math 25',
             desc: 'Math 25 study group',
             location: 'Lamont',
@@ -26,6 +27,7 @@ function getListItems() {
             timeEnd: 'tomorrow'
         },
         {
+            id: 1,
             name: 'Math 55',
             desc: 'Math 55 study group',
             location: 'Lamont',
@@ -33,6 +35,7 @@ function getListItems() {
             timeEnd: 'tomorrow'
         },
         {
+            id: 2,
             name: 'CS 61',
             desc: 'CS 61 study group',
             location: 'Lamont',
@@ -40,6 +43,7 @@ function getListItems() {
             timeEnd: 'tomorrow'
         },
         {
+            id: 3,
             name: 'SW 43',
             desc: 'SW 43 study group',
             location: 'Lamont',
@@ -50,13 +54,20 @@ function getListItems() {
     return items;
 }
 
+function chooseGroup(id) {
+    localStorage.setItem('groupID', id);
+    window.location.replace('view.html');
+}
+
 function initializeApp() {
     var items = getListItems();
     for (var i = 0; i < items.length; i++) {
         $('#items').append(
-            '<li class="list-group-item">' +
+            '<a href="javascript:void(0)" onclick="chooseGroup(' +
+            String(items[i].id) +
+            ')"><li class="list-group-item">' +
             items[i].name + 
-            '</li>');
+            '</li></a>');
     }
 }
 
