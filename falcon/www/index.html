@@ -32,9 +32,22 @@
     </head>
     <body>
         <div class="app">
-            HELLO WORLD!
-            <a href="add.html"><button>Click me to go to add.html!</button></a>
-        </div>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="input-group" style="margin-top:8px">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default"><a href="add.html"><div class="glyphicon glyphicon-plus"></div></a></button>
+                        </div>
+                        <input type="text" class="form-control">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                    </div>
+                </div>
+            </nav>
+            <ul class="list-group" id="items">
+                
+            </ul>
+        </div>  
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
