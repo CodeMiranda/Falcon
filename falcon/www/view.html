@@ -32,25 +32,28 @@
     </head>
     <body>
         <div class="app">
-            <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container-fluid">
-                    <div class="input-group" style="margin-top:8px">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default"><a href="add.html"><div class="glyphicon glyphicon-plus"></div></a></button>
-                        </div>
-                        <input type="text" class="form-control">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                    </div>
-                </div>
-            </nav>
-            <ul class="list-group" id="items">
-                
-            </ul>
-        </div>  
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+            <div class ="box">
+                <p class="subject">Name:</p>
+                <p class="formdata">"GOV 20 Study Group"</p>
+            </div>
+            <div class ="box">
+                <p class="subject">Times:</p>
+                <p class="formdata"> "5:30 - 6:30"</p>
+            </div>
+            <div class ="box">
+                <p class="subject">Location:</p>
+                <p class="formdata">"Lamont Library Cafe"</p>
+            </div>
+            <div class ="box">
+                <p class="subject">Description:</p>
+                <p class="formdata">"Going over week 8 readings - discussion."</p>
+            </div>
+            
+            /*<a href="add.html"><button>Click me to go to add.html!</button></a>*/
+        </div>
         <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/view.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>

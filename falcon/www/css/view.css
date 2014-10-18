@@ -1,0 +1,13 @@
+.subject {
+	text-align: left;
+	font-weight: bold;
+}
+
+.formadata {
+	text-align: center;
+}
+
+.box {
+	border-color: black;
+	border-style: dashed;
+}
