@@ -6,19 +6,33 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/add.css" />
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Add Screen</title>
     </head>
     <body>
         <div class="app">
             <form id="submission_form">
-                <p>Group Name: <input type="text" name="groupName" /></p>
-                <p>Description: <input type="text" name="description" /></p>
-                <p>Open Until: <input type="time" name="timeEnd" /></p>
-                <p>Location: <input type="text" name="location" /></p>
-                <input type="button" onclick="return submit_to_server()" value="Submit Group" />
+            <div class="input-group">
+                <span class="input-group-addon">Group Name</span>
+                <input type="text" class="form-control" placeholder="e.g. Gov 20" name="groupName" />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Description</span>
+                <input type="text" class="form-control" placeholder="e.g. Going over Kant reading" name="description" />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Open Until</span>
+                <input type="time" class="form-control" placeholder="12:00 AM" name="timeEnd" />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">Location</span>
+                <input type="text" class="form-control" placeholder="e.g. Lamont" name="location" />
+            </div>
             </form>
-            <a href="index.html"><button>Click me to go to index.html!</button></a>
+            <button type="submit" class="btn btn-primary" onclick="return submit_to_server()">Submit</button>
+            <br><br><br>
+            <a href="index.html"><button class="btn btn-default btn-small"><div class="glyphicon glyphicon-arrow-left"></div></button></a>
         </div>
         <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
