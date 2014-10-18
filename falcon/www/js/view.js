@@ -1,6 +1,7 @@
 function getFromDatabase(id)
 {
 	var obj = {
+		id: localStorage.getItem('groupID'),
 		name: 'Math 25',
         desc: 'Math 25 study group',
         location: 'Lamont',
