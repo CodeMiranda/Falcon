@@ -10,16 +10,18 @@
     </head>
     <body>
         <div class="app">
-            <form>
-                Group Name: <input type="text" name="groupName" /><br>
-                Description: <input type="text" name="description" /><br>
-                Open Until: <input type="time" name="closing time" /><br>
-                <input type="submit" value="Submit Group" />
+            <form id="submission_form">
+                <p>Group Name: <input type="text" name="groupName" /></p>
+                <p>Description: <input type="text" name="description" /></p>
+                <p>Open Until: <input type="time" name="timeEnd" /></p>
+                <p>Location: <input type="text" name="location" /></p>
+                <input type="button" onclick="return submit_to_server()" value="Submit Group" />
             </form>
             <a href="index.html"><button>Click me to go to index.html!</button></a>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/add.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
