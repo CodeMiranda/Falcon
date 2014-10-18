@@ -16,10 +16,55 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+function getListItems() {
+    var items = [
+        {
+            name: 'Math 25',
+            desc: 'Math 25 study group',
+            location: 'Lamont',
+            timeCreated: 'now',
+            timeEnd: 'tomorrow'
+        },
+        {
+            name: 'Math 55',
+            desc: 'Math 55 study group',
+            location: 'Lamont',
+            timeCreated: 'now',
+            timeEnd: 'tomorrow'
+        },
+        {
+            name: 'CS 61',
+            desc: 'CS 61 study group',
+            location: 'Lamont',
+            timeCreated: 'now',
+            timeEnd: 'tomorrow'
+        },
+        {
+            name: 'SW 43',
+            desc: 'SW 43 study group',
+            location: 'Lamont',
+            timeCreated: 'now',
+            timeEnd: 'tomorrow'
+        }
+    ];
+    return items;
+}
+
+function initializeApp() {
+    var items = getListItems();
+    for (var i = 0; i < items.length; i++) {
+        $('#items').append(
+            '<li class="list-group-item">' +
+            items[i].name + 
+            '</li>');
+    }
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+        initializeApp();
     },
     // Bind Event Listeners
     //
@@ -37,6 +82,6 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        console.log('Received Event: ' + id);
+
     }
 };
