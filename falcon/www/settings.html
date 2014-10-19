@@ -11,7 +11,17 @@
         <title>Home Screen</title>
     </head>
 	<body>
-		<div>
+		<div class="app">
+			<nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                	<div class="pull-left">
+                		<a href="index.html"><button type="button" class="btn btn-default navbar-btn pull-left"><div class="glyphicon glyphicon-home"></div></button></a>
+                	</div>
+                    <div class="pull-right">
+		                <a href="add.html"><button type="button" class="btn btn-default navbar-btn"><div class="glyphicon glyphicon-plus"></div></button></a>
+		            </div>
+                </div>
+            </nav>
 			<!-- <p>Sign out?</p> -->
 			<button onclick="sign_out()" class="btn btn-danger btn-large">Sign Out</button>
 		</div>

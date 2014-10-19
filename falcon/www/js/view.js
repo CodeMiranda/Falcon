@@ -12,6 +12,18 @@ function getFromDatabase(id, callback)
 	callback(obj);*/
 }
 
+var groupInfo = {};
+
+function joinGroup() {
+	$.post(config.serverUri + '/join?userId=' +
+		localStorage.getItem('userID') + '&groupId=' + 
+		groupInfo.id, function(response) {
+			console.log(response);
+			$('#joinButton').prop('disabled', true);
+			$('#attendance').text(String(groupInfo.members.length+1) + ' attending');
+		});
+}
+
 var group = {
 	initialize: function() {
 		getFromDatabase(localStorage.getItem('groupID'), function(response) {
@@ -21,6 +33,20 @@ var group = {
 			$('#location').text(response.reply.location);
 			$('#description').text(response.reply.description);
 			$('#attendance').text(String(response.reply.members.length) + ' attending');
+			var member = false;
+			for (var i = 0; i < response.reply.members.length; i++) {
+				if (response.reply.members[i] === Number(localStorage.getItem("userID"))) {
+					member = true;
+					break;
+				}
+			}
+			if (member) {
+				$('#joinButton').prop('disabled', true);
+			}
+			else {
+				$('#joinButton').prop('disabled', false);
+			}
+			groupInfo = response.reply;
 		});
 	}
 };

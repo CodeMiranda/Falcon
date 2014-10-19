@@ -21,41 +21,6 @@ var groups = [];
 
 function getListItems(callback) {
     $.get(config.serverUri + '/home', callback);
-    /*var items = [
-        {
-            id: 0,
-            name: 'Math 25',
-            description: 'Math 25 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        },
-        {
-            id: 1,
-            name: 'Math 55',
-            description: 'Math 55 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        },
-        {
-            id: 2,
-            name: 'CS 61',
-            description: 'CS 61 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        },
-        {
-            id: 3,
-            name: 'SW 43',
-            description: 'SW 43 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        }
-    ];
-    callback(items);*/
 }
 
 function chooseGroup(id) {
@@ -108,6 +73,44 @@ function sort(items, index, asc) {
         return (asc > 0) ? compare(item1, item2, index) : -compare(item1, item2, index);
     });
     return toReturn;
+}
+
+function showMyGroups() {
+    $('#items').empty();
+    $('#items').append('<h3 style="text-align:center">' + 
+        localStorage.getItem("userName") + '</h>');
+    var numGroupListsLoaded = 0;
+    var id = localStorage.getItem('userID');
+    var ownedGroups = [];
+    var joinedGroups = [];
+    function addGroups() {
+        if (ownedGroups.length > 0) {
+            $('#items').append('<div class="list-group-item"><h4 class="list-group-item-heading">Groups Owned</h4></div>');
+            for (var i = 0; i < ownedGroups.length; i++) {
+                $('#items').append(groupItemFormat(ownedGroups[i]))
+            }
+        }
+        if (joinedGroups.length > 0) {
+            $('#items').append('<div class="list-group-item"><h4 class="list-group-item-heading">Groups Joined</h4></div>');
+            for (var i = 0; i < joinedGroups.length; i++) {
+                $('#items').append(groupItemFormat(joinedGroups[i]))
+            }
+        }
+    }
+    $.get(config.serverUri + '/owned?id=' + String(id), function(response) {
+        numGroupListsLoaded++;
+        ownedGroups = response.reply;
+        if (numGroupListsLoaded === 2) {
+            addGroups();
+        }
+    });
+    $.get(config.serverUri + '/joined?id=' + String(id), function(response) {
+        numGroupListsLoaded++;
+        joinedGroups = response.reply;
+        if (numGroupListsLoaded === 2) {
+            addGroups();
+        }
+    });
 }
 
 var app = {
