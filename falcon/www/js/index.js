@@ -17,8 +17,8 @@
  * under the License.
  */
 function getListItems(callback) {
-    //$.get(config.serverUri + '/home', callback);
-    var items = [
+    $.get(config.serverUri + '/home', callback);
+    /*var items = [
         {
             id: 0,
             name: 'Math 25',
@@ -52,7 +52,7 @@ function getListItems(callback) {
             timeEnd: 'tomorrow'
         }
     ];
-    callback(items);
+    callback(items);*/
 }
 
 function chooseGroup(id) {
@@ -75,9 +75,9 @@ function groupItemFormat(item) {
 }
 
 function initializeApp() {
-    getListItems(function(items) {
-        for (var i = 0; i < items.length; i++) {
-            $('#items').append(groupItemFormat(items[i]));
+    getListItems(function(response) {
+        for (var i = 0; i < response.reply.length; i++) {
+            $('#items').append(groupItemFormat(response.reply[i]));
         }
     });
 }
