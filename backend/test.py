@@ -64,9 +64,6 @@ def initdb():
     group1 = addgroup(user1, "Gov 20", "Going over reading", "Annenberg", 1413743400, 1413754200)
     group2 = addgroup(user2, "CS 50", "This is a difficult PSet", "Lamont", 1413715000, 1413764340)
     group3 = addgroup(user3, "ES 50", "Talking about lab", "Science Center B", 1413765000, 1413772200)
-    addjoin(user1, group1)
-    addjoin(user2, group2)
-    addjoin(user3, group3)
 
 def queryAll(table, fields):
     db.query("SELECT " + ','.join(fields) + " FROM " + table + ";")
