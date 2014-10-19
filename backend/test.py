@@ -30,6 +30,13 @@ def resetgroups():
               "timeEnd BIGINT NOT NULL,"
               "PRIMARY KEY (id)) ENGINE=InnoDB;")
 
+def resetjoins():
+    db.query("DROP TABLE IF EXISTS joins;")
+    db.query("CREATE TABLE joins"
+             "(userId BIGINT NOT NULL,"
+              "groupId BIGINT NOT NULL,"
+              "PRIMARY KEY (groupId, userId)) ENGINE=InnoDB;")
+
 def adduser(handle, name, picture):
     cur = db.cursor()
     cur.execute("INSERT INTO users (handle, name, picture) VALUES (%s, %s, %s)",
@@ -42,13 +49,28 @@ def addgroup(author, groupName, description, location, timeStart, timeEnd):
                 (author, groupName, description, location, timeStart, timeEnd))
     return cur.lastrowid
 
+def addjoin(userId, groupId):
+    cur = db.cursor()
+    cur.execute("REPLACE INTO joins (userId, groupId) VALUES (%s, %s)",
+                (userId, groupId))
+
 def initdb():
     resetusers()
     resetgroups()
+    resetjoins()
     user1 = adduser("zuck", "Mark Zuckerberg", "rage.png")
+    user2 = adduser("fu", "Dan Fu", "rage.png")
+    user3 = adduser("ho", "Johnny Ho", "rage.png")
     group1 = addgroup(user1, "CS 50", "This week's pset is rough", "Thayer", 1413716820, 1413764340)
+    group2 = addgroup(user1, "CS 10", "This is hard", "Stuff", 1413715000, 1413764340)
+    addgroup(user2, "Math 55", "Halp", "Pennypacker", 1410000000, 1413764340)
+    addgroup(user2, "Art History", "Non self-identity", "Barker", 1420000000, 1430000000)
+    addgroup(user3, "Zuck's bday party", "Fun and games", "California", 1400000000, 1410000000)
+    addgroup(user3, "Brainstorming", "This is hard stuff", "i-Lab", 150000000, 160000000)
+    addjoin(user2, group1)
+    addjoin(user3, group2)
 
-def queryall(table, fields):
+def queryAll(table, fields):
     db.query("SELECT " + ','.join(fields) + " FROM " + table + ";")
     r = db.use_result()
     rows = r.fetch_row(maxrows=0)
@@ -56,6 +78,12 @@ def queryall(table, fields):
     for row in rows:
         result.append(dict(zip(fields, row)))
     return result
+
+def queryMembers(groupId):
+    db.query("SELECT userId FROM joins WHERE groupId = %s" % db.literal(groupId))
+    r = db.use_result()
+    rows = r.fetch_row(maxrows=0)
+    return [row[0] for row in rows]
 
 class BaseHandler(tornado.web.RequestHandler):
     def set_default_headers(self):
@@ -67,9 +95,10 @@ class MainHandler(BaseHandler):
 
 class HomeHandler(BaseHandler):
     def get(self):
-        result = queryall('groups', ['id', 'author', 'groupName', 'description', 'location', 'timeStart', 'timeEnd'])
-        print result
-        self.write({'reply': result})
+        result = queryAll('groups', ['id', 'author', 'groupName', 'description', 'location', 'timeStart', 'timeEnd'])
+        for row in result:
+            row['numMembers'] = len(queryMembers(row['id'])) + 1
+        self.write({'success': True, 'reply': result})
 
 class GroupHandler(BaseHandler):
     def get(self):
@@ -77,13 +106,51 @@ class GroupHandler(BaseHandler):
         try:
             id = int(id)
         except:
+            self.write({'success': False})
             return
-        result = queryall('groups', ['id', 'author', 'groupName', 'description', 'location', 'timeStart', 'timeEnd'])
+        result = queryAll('groups', ['id', 'author', 'groupName', 'description', 'location', 'timeStart', 'timeEnd'])
+        members = queryMembers(id)
         for r in result:
             if r['id'] == id:
+                if r['author'] not in members:
+                    members.append(r['author'])
+                r['members'] = members
                 self.write({'success': True, 'reply': r})
                 return
         self.write({'success': False})
+
+class OwnedHandler(BaseHandler):
+    def get(self):
+        id = self.get_argument('id')
+        try:
+            id = int(id)
+        except:
+            self.write({'success': False})
+            return
+        result = queryAll('groups', ['id', 'author', 'groupName', 'description', 'location', 'timeStart', 'timeEnd'])
+        rows = []
+        for r in result:
+            if id == r['author']:
+                r['numMembers'] = len(queryMembers(r['id'])) + 1
+                rows.append(r)
+        self.write({'success': True, 'reply': rows})
+
+class JoinedHandler(BaseHandler):
+    def get(self):
+        id = self.get_argument('id')
+        try:
+            id = int(id)
+        except:
+            self.write({'success': False})
+            return
+        result = queryAll('groups', ['id', 'author', 'groupName', 'description', 'location', 'timeStart', 'timeEnd'])
+        rows = []
+        for r in result:
+            members = queryMembers(r['id'])
+            if id in members:
+                r['numMembers'] = len(queryMembers(r['id'])) + 1
+                rows.append(r)
+        self.write({'success': True, 'reply': rows})
 
 class UserHandler(BaseHandler):
     def get(self):
@@ -91,8 +158,9 @@ class UserHandler(BaseHandler):
         try:
             id = int(id)
         except:
+            self.write({'success': False})
             return
-        result = queryall('users', ['id', 'handle', 'name', 'picture'])
+        result = queryAll('users', ['id', 'handle', 'name', 'picture'])
         for r in result:
             if r['id'] == id:
                 self.write({'success': True, 'reply': r})
@@ -117,12 +185,29 @@ class AddHandler(BaseHandler):
         id = addgroup(author, groupName, description, location, timeStart, timeEnd)
         self.write({'success': True, 'id': id})
 
+class JoinHandler(BaseHandler):
+    def post(self):
+        userId = self.get_argument('userId')
+        groupId = self.get_argument('groupId')
+        try:
+            userId = int(userId)
+            groupId = int(groupId)
+        except:
+            self.write({'success': False})
+            return
+        addjoin(userId, groupId)
+        self.write({'success': True})
+
+
 application = tornado.web.Application([
     (r"/", MainHandler),
     (r"/home", HomeHandler),
     (r"/groups", GroupHandler),
+    (r"/owned", OwnedHandler),
+    (r"/joined", JoinedHandler),
     (r"/users", UserHandler),
     (r"/add", AddHandler),
+    (r"/join", JoinHandler),
     (r"/(favicon.ico)", tornado.web.StaticFileHandler, {"path": "pictures/"}),
     (r"/pictures/(.*)", tornado.web.StaticFileHandler, {"path": "pictures/"}),
 ])
