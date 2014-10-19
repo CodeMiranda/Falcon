@@ -212,5 +212,5 @@ application = tornado.web.Application([
 
 if __name__ == "__main__":
     initdb()
-    application.listen(8000)
+    application.listen(80)
     tornado.ioloop.IOLoop.instance().start()
