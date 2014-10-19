@@ -2,3 +2,12 @@
     min-width:110px;
     text-align:left;
 }
+
+.input-group {
+	margin: 20px;
+}
+
+.center {
+	text-align: center;
+	padding-top: 20px;
+}

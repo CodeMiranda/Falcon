@@ -16,43 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+var groups = [];
+
 function getListItems(callback) {
     $.get(config.serverUri + '/home', callback);
-    /*var items = [
-        {
-            id: 0,
-            name: 'Math 25',
-            description: 'Math 25 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        },
-        {
-            id: 1,
-            name: 'Math 55',
-            description: 'Math 55 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        },
-        {
-            id: 2,
-            name: 'CS 61',
-            description: 'CS 61 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        },
-        {
-            id: 3,
-            name: 'SW 43',
-            description: 'SW 43 study group',
-            location: 'Lamont',
-            timeStart: 'now',
-            timeEnd: 'tomorrow'
-        }
-    ];
-    callback(items);*/
 }
 
 function chooseGroup(id) {
@@ -64,22 +32,85 @@ function groupItemFormat(item) {
     var answer = '';
     answer += '<a href="javascript:void(0)" onclick="chooseGroup(' +
         String(item.id) +
-        ')" class="list-group-item">' +
-        '<h4 class="list-group-item-heading">' + item.groupName + '</h4>' +
-        '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
-        '<p class="list-group-item-paragraph">' + 
+        ')" class="list-group-item"><div class="row">' +
+        '<h3 class="list-group-item-heading pull-left">' + item.groupName + '</h3>' +
+        '<p class="list-group-item-paragraph pull-right">' + 
         moment(item.timeStart, 'X').format('h:mm A') + '-' + 
-        moment(item.timeEnd, 'X').format('h:mm A') + '<br>' +
-        'over 9000 people attending' + '</p>' + 
+        moment(item.timeEnd, 'X').format('h:mm A') + '</p>' +
+        '</div><div class="row">' +
+        '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
+        '<p>' + String(item.numMembers) + ' attending' + '</p>' + 
+        '</div>' +
         '</a>';
     return answer;
 }
 
+function resortList(index, asc) {
+    $('#items').empty();
+    groups = sort(groups, index, asc);
+    for (var i = 0; i < groups.length; i++) {
+        $('#items').append(groupItemFormat(groups[i]));
+    }
+}
+
 function initializeApp() {
     getListItems(function(response) {
-        console.log(response);
-        for (var i = 0; i < response.reply.length; i++) {
-            $('#items').append(groupItemFormat(response.reply[i]));
+        groups = response.reply;
+        resortList('numMembers', 0);
+    });
+}
+
+function compare(item1, item2, index) {
+    if ((!item1[index] && (item1[index] !== 0)) || (!item2[index] && (item2[index] !== 0))) {
+        return 0;
+    }
+    if (item1[index] === item2[index]) {
+        return 0;
+    }
+    return (item1[index] < item2[index] ? -1 : 1);
+}
+
+function sort(items, index, asc) {
+    var toReturn = items.sort(function(item1, item2) {
+        return (asc > 0) ? compare(item1, item2, index) : -compare(item1, item2, index);
+    });
+    return toReturn;
+}
+
+function showMyGroups() {
+    $('#items').empty();
+    $('#items').append('<h3 style="text-align:center">' + 
+        localStorage.getItem("userName") + '</h>');
+    var numGroupListsLoaded = 0;
+    var id = localStorage.getItem('userID');
+    var ownedGroups = [];
+    var joinedGroups = [];
+    function addGroups() {
+        if (ownedGroups.length > 0) {
+            $('#items').append('<div class="list-group-item"><h4 class="list-group-item-heading">Groups Owned</h4></div>');
+            for (var i = 0; i < ownedGroups.length; i++) {
+                $('#items').append(groupItemFormat(ownedGroups[i]))
+            }
+        }
+        if (joinedGroups.length > 0) {
+            $('#items').append('<div class="list-group-item"><h4 class="list-group-item-heading">Groups Joined</h4></div>');
+            for (var i = 0; i < joinedGroups.length; i++) {
+                $('#items').append(groupItemFormat(joinedGroups[i]))
+            }
+        }
+    }
+    $.get(config.serverUri + '/owned?id=' + String(id), function(response) {
+        numGroupListsLoaded++;
+        ownedGroups = response.reply;
+        if (numGroupListsLoaded === 2) {
+            addGroups();
+        }
+    });
+    $.get(config.serverUri + '/joined?id=' + String(id), function(response) {
+        numGroupListsLoaded++;
+        joinedGroups = response.reply;
+        if (numGroupListsLoaded === 2) {
+            addGroups();
         }
     });
 }
@@ -110,6 +141,13 @@ var app = {
     }
 };
 
-if (window.localStorage.getItem("realname") == null) {
-    window.location = "login.html";
+if (window.localStorage.getItem("userName") == null) {
+    //window.location = "login.html";
+    var userID = Math.floor((Math.random() * 3) + 1);
+    $.get(config.serverUri + '/users?id=' + String(userID), function(response) {
+        window.localStorage.setItem("userHandle", response.reply.handle);
+        window.localStorage.setItem("userID", response.reply.id);
+        window.localStorage.setItem("userName", response.reply.name);
+        window.localStorage.setItem("userPicture", response.reply.picture);
+    });
 }
