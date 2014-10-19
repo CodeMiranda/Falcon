@@ -1,6 +1,6 @@
 function getFromDatabase(id, callback)
 {
-	//$.get(config.serverUri + '/' + id, callback);
+	//$.get(config.serverUri + '/group?id=' + id, callback);
 	var obj = {
 		id: localStorage.getItem('groupID'),
 		name: 'Math 25',

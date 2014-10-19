@@ -17,7 +17,7 @@
  * under the License.
  */
 function getListItems(callback) {
-    //$.get(config.serverUri, callback);
+    //$.get(config.serverUri + '/home', callback);
     var items = [
         {
             id: 0,
