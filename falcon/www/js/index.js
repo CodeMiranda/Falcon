@@ -22,7 +22,7 @@ function getListItems(callback) {
         {
             id: 0,
             name: 'Math 25',
-            desc: 'Math 25 study group',
+            description: 'Math 25 study group',
             location: 'Lamont',
             timeStart: 'now',
             timeEnd: 'tomorrow'
@@ -30,7 +30,7 @@ function getListItems(callback) {
         {
             id: 1,
             name: 'Math 55',
-            desc: 'Math 55 study group',
+            description: 'Math 55 study group',
             location: 'Lamont',
             timeStart: 'now',
             timeEnd: 'tomorrow'
@@ -38,7 +38,7 @@ function getListItems(callback) {
         {
             id: 2,
             name: 'CS 61',
-            desc: 'CS 61 study group',
+            description: 'CS 61 study group',
             location: 'Lamont',
             timeStart: 'now',
             timeEnd: 'tomorrow'
@@ -46,7 +46,7 @@ function getListItems(callback) {
         {
             id: 3,
             name: 'SW 43',
-            desc: 'SW 43 study group',
+            description: 'SW 43 study group',
             location: 'Lamont',
             timeStart: 'now',
             timeEnd: 'tomorrow'

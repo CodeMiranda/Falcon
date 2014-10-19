@@ -4,7 +4,7 @@ function getFromDatabase(id, callback)
 	var obj = {
 		id: localStorage.getItem('groupID'),
 		name: 'Math 25',
-        desc: 'Math 25 study group',
+        description: 'Math 25 study group',
         location: 'Lamont',
         timeCreated: 'now',
         timeEnd: 'tomorrow'
@@ -18,7 +18,7 @@ var group = {
 			$('#name').text(groupInfo.name);
 			$('#times').text(groupInfo.timeCreated + '-' + groupInfo.timeEnd);
 			$('#location').text(groupInfo.location);
-			$('#description').text(groupInfo.desc);
+			$('#description').text(groupInfo.description);
 			$('#attendance').text('over 9000 people attending');
 		});
 	}
