@@ -61,14 +61,6 @@ def initdb():
     user1 = adduser("zuck", "Mark Zuckerberg", "rage.png")
     user2 = adduser("fu", "Dan Fu", "rage.png")
     user3 = adduser("ho", "Johnny Ho", "rage.png")
-    group1 = addgroup(user1, "CS 50", "This week's pset is rough", "Thayer", 1413716820, 1413764340)
-    group2 = addgroup(user1, "CS 10", "This is hard", "Stuff", 1413715000, 1413764340)
-    addgroup(user2, "Math 55", "Halp", "Pennypacker", 1410000000, 1413764340)
-    addgroup(user2, "Art History", "Non self-identity", "Barker", 1420000000, 1430000000)
-    addgroup(user3, "Zuck's bday party", "Fun and games", "California", 1400000000, 1410000000)
-    addgroup(user3, "Brainstorming", "This is hard stuff", "i-Lab", 150000000, 160000000)
-    addjoin(user2, group1)
-    addjoin(user3, group2)
 
 def queryAll(table, fields):
     db.query("SELECT " + ','.join(fields) + " FROM " + table + ";")
