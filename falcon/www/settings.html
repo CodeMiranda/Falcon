@@ -1,14 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Settings</title>
-</head>
-<body>
-	<div>
-		<!-- <p>Sign out?</p> -->
-		<input onclick="return sign_out()" type="submit" class="btn btn-primary btn-large" value="SIGN OUT" style="background-color:red">
-	</div>
-	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-	<script type="text/javascript" src="js/settings.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <title>Home Screen</title>
+    </head>
+	<body>
+		<div class="app">
+			<nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                	<div class="pull-left">
+                		<a href="index.html"><button type="button" class="btn btn-default navbar-btn pull-left"><div class="glyphicon glyphicon-home"></div></button></a>
+                	</div>
+                    <div class="pull-right">
+		                <a href="add.html"><button type="button" class="btn btn-default navbar-btn"><div class="glyphicon glyphicon-plus"></div></button></a>
+		            </div>
+                </div>
+            </nav>
+			<!-- <p>Sign out?</p> -->
+			<button onclick="sign_out()" class="btn btn-danger btn-large">Sign Out</button>
+		</div>
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="js/settings.js"></script>
+	</body>
 </html>

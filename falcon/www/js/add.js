@@ -7,7 +7,7 @@ function submit_to_server() {
 		timeStart: moment(document.forms["submission_form"]["timeStart"].value, "HH:mm").unix(),
 		timeEnd: moment(document.forms["submission_form"]["timeEnd"].value, "HH:mm").unix()
 	}
-	//console.log(data);
+	data.author = window.localStorage.getItem("userID");
 	targetServer = config.serverUri + '/add?' + $.param(data);
 	$.post(targetServer, function(response) {
 		window.location.replace("index.html");
