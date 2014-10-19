@@ -59,7 +59,7 @@ h1 {
     text-align:center;
 }
 
-#topbar {/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
+.navbar.navbar-default.navbar-fixed-top {/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
 
 /* IE10 Consumer Preview */ 
 background-image: -ms-linear-gradient(top left, #007A36 0%, #005927 100%);
