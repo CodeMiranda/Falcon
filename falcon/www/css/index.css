@@ -36,7 +36,7 @@ body {
 /* Portrait layout (default) */
 .app {
     position:absolute;             /* position in the center of the screen */
-    padding:49px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
+    padding:59px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     width:100%;
 }
 
@@ -59,7 +59,8 @@ h1 {
     text-align:center;
 }
 
-.navbar.navbar-default.navbar-fixed-top {/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
+.navbar.navbar-default.navbar-fixed-top {
+/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
 
 /* IE10 Consumer Preview */ 
 background-image: -ms-linear-gradient(top left, #007A36 0%, #005927 100%);
@@ -114,4 +115,33 @@ background-image: linear-gradient(to bottom right, #007A36 0%, #005927 100%);
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+.list-group-item .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.list-group-item p {
+    margin: 0;
+}
+
+.app .list-group {
+    margin-bottom: 0px;
+}
+
+.app a.list-group-item {
+    color: #999;
+}
+
+.app .navbar-btn {
+    margin-top: 11px;
+    margin-bottom: 11px;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.app .btn.navbar-btn {
+    padding: 6px 12px 4px 12px;
+    font-size: 18px;
 }

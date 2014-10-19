@@ -32,13 +32,15 @@ function groupItemFormat(item) {
     var answer = '';
     answer += '<a href="javascript:void(0)" onclick="chooseGroup(' +
         String(item.id) +
-        ')" class="list-group-item">' +
-        '<h4 class="list-group-item-heading">' + item.groupName + '</h4>' +
-        '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
-        '<p class="list-group-item-paragraph">' + 
+        ')" class="list-group-item"><div class="row">' +
+        '<h3 class="list-group-item-heading pull-left">' + item.groupName + '</h3>' +
+        '<p class="list-group-item-paragraph pull-right">' + 
         moment(item.timeStart, 'X').format('h:mm A') + '-' + 
-        moment(item.timeEnd, 'X').format('h:mm A') + '<br>' +
-        String(item.numMembers) + ' attending' + '</p>' + 
+        moment(item.timeEnd, 'X').format('h:mm A') + '</p>' +
+        '</div><div class="row">' +
+        '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
+        '<p>' + String(item.numMembers) + ' attending' + '</p>' + 
+        '</div>' +
         '</a>';
     return answer;
 }
