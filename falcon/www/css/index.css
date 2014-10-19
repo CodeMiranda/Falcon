@@ -59,6 +59,27 @@ h1 {
     text-align:center;
 }
 
+.navbar.navbar-default.navbar-fixed-top {/* Note: This gradient may render differently in browsers that don't support the unprefixed gradient syntax */
+
+/* IE10 Consumer Preview */ 
+background-image: -ms-linear-gradient(top left, #007A36 0%, #005927 100%);
+
+/* Mozilla Firefox */ 
+background-image: -moz-linear-gradient(top left, #007A36 0%, #005927 100%);
+
+/* Opera */ 
+background-image: -o-linear-gradient(top left, #007A36 0%, #005927 100%);
+
+/* Webkit (Safari/Chrome 10) */ 
+background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #007A36), color-stop(1, #005927));
+
+/* Webkit (Chrome 11+) */ 
+background-image: -webkit-linear-gradient(top left, #007A36 0%, #005927 100%);
+
+/* W3C Markup, IE10 Release Preview */ 
+background-image: linear-gradient(to bottom right, #007A36 0%, #005927 100%);
+}
+
 .event {
     border-radius:4px;
     -webkit-border-radius:4px;
