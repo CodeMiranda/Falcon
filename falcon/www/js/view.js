@@ -1,22 +1,26 @@
-function getFromDatabase(id)
+function getFromDatabase(id, callback)
 {
-	var obj = {
+	$.get(config.serverUri + '/groups?id=' + id, callback);
+	/*var obj = {
 		id: localStorage.getItem('groupID'),
 		name: 'Math 25',
-        desc: 'Math 25 study group',
+        description: 'Math 25 study group',
         location: 'Lamont',
         timeCreated: 'now',
         timeEnd: 'tomorrow'
 	};
-	return obj;
+	callback(obj);*/
 }
 
 var group = {
 	initialize: function() {
-		var groupInfo = getFromDatabase(0);
-		$('#name').text(groupInfo.name);
-		$('#times').text(groupInfo.timeCreated + '-' + groupInfo.timeEnd);
-		$('#location').text(groupInfo.location);
-		$('#description').text(groupInfo.desc);
+		getFromDatabase(localStorage.getItem('groupID'), function(response) {
+			$('#name').text(response.reply.name);
+			$('#times').text(String(moment(response.reply.timeStart, 'X').format('h:mm A')) +
+				'-' + String(moment(response.reply.timeEnd, 'X').format('h:mm A')));
+			$('#location').text(response.reply.location);
+			$('#description').text(response.reply.description);
+			$('#attendance').text('over 9000 people attending');
+		});
 	}
 };

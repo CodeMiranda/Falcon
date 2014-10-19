@@ -16,42 +16,43 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-function getListItems() {
-    var items = [
+function getListItems(callback) {
+    $.get(config.serverUri + '/home', callback);
+    /*var items = [
         {
             id: 0,
             name: 'Math 25',
-            desc: 'Math 25 study group',
+            description: 'Math 25 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         },
         {
             id: 1,
             name: 'Math 55',
-            desc: 'Math 55 study group',
+            description: 'Math 55 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         },
         {
             id: 2,
             name: 'CS 61',
-            desc: 'CS 61 study group',
+            description: 'CS 61 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         },
         {
             id: 3,
             name: 'SW 43',
-            desc: 'SW 43 study group',
+            description: 'SW 43 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         }
     ];
-    return items;
+    callback(items);*/
 }
 
 function chooseGroup(id) {
@@ -59,16 +60,28 @@ function chooseGroup(id) {
     window.location.replace('view.html');
 }
 
+function groupItemFormat(item) {
+    var answer = '';
+    answer += '<a href="javascript:void(0)" onclick="chooseGroup(' +
+        String(item.id) +
+        ')" class="list-group-item">' +
+        '<h4 class="list-group-item-heading">' + item.groupName + '</h4>' +
+        '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
+        '<p class="list-group-item-paragraph">' + 
+        moment(item.timeStart, 'X').format('h:mm A') + '-' + 
+        moment(item.timeEnd, 'X').format('h:mm A') + '<br>' +
+        'over 9000 people attending' + '</p>' + 
+        '</a>';
+    return answer;
+}
+
 function initializeApp() {
-    var items = getListItems();
-    for (var i = 0; i < items.length; i++) {
-        $('#items').append(
-            '<a href="javascript:void(0)" onclick="chooseGroup(' +
-            String(items[i].id) +
-            ')"><li class="list-group-item">' +
-            items[i].name + 
-            '</li></a>');
-    }
+    getListItems(function(response) {
+        console.log(response);
+        for (var i = 0; i < response.reply.length; i++) {
+            $('#items').append(groupItemFormat(response.reply[i]));
+        }
+    });
 }
 
 var app = {
@@ -96,3 +109,7 @@ var app = {
 
     }
 };
+
+if (window.localStorage.getItem("realname") == null) {
+    window.location = "login.html";
+}
