@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-function getListItems() {
+function getListItems(callback) {
+    //$.get(config.serverUri, callback);
     var items = [
         {
             id: 0,
@@ -51,7 +52,7 @@ function getListItems() {
             timeEnd: 'tomorrow'
         }
     ];
-    return items;
+    callback(items);
 }
 
 function chooseGroup(id) {
@@ -60,15 +61,16 @@ function chooseGroup(id) {
 }
 
 function initializeApp() {
-    var items = getListItems();
-    for (var i = 0; i < items.length; i++) {
-        $('#items').append(
-            '<a href="javascript:void(0)" onclick="chooseGroup(' +
-            String(items[i].id) +
-            ')"><li class="list-group-item">' +
-            items[i].name + 
-            '</li></a>');
-    }
+    getListItems(function(items) {
+        for (var i = 0; i < items.length; i++) {
+            $('#items').append(
+                '<a href="javascript:void(0)" onclick="chooseGroup(' +
+                String(items[i].id) +
+                ')"><li class="list-group-item">' +
+                items[i].name + 
+                '</li></a>');
+        }
+    });
 }
 
 var app = {

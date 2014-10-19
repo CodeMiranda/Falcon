@@ -1,5 +1,6 @@
-function getFromDatabase(id)
+function getFromDatabase(id, callback)
 {
+	//$.get(config.serverUri + '/' + id, callback);
 	var obj = {
 		id: localStorage.getItem('groupID'),
 		name: 'Math 25',
@@ -8,15 +9,16 @@ function getFromDatabase(id)
         timeCreated: 'now',
         timeEnd: 'tomorrow'
 	};
-	return obj;
+	callback(obj);
 }
 
 var group = {
 	initialize: function() {
-		var groupInfo = getFromDatabase(0);
-		$('#name').text(groupInfo.name);
-		$('#times').text(groupInfo.timeCreated + '-' + groupInfo.timeEnd);
-		$('#location').text(groupInfo.location);
-		$('#description').text(groupInfo.desc);
+		getFromDatabase(0, function(groupInfo) {
+			$('#name').text(groupInfo.name);
+			$('#times').text(groupInfo.timeCreated + '-' + groupInfo.timeEnd);
+			$('#location').text(groupInfo.location);
+			$('#description').text(groupInfo.desc);
+		});
 	}
 };
