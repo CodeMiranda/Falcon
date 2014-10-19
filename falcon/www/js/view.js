@@ -15,12 +15,12 @@ function getFromDatabase(id, callback)
 var group = {
 	initialize: function() {
 		getFromDatabase(localStorage.getItem('groupID'), function(response) {
-			$('#name').text(response.reply.name);
+			$('#groupName').text(response.reply.groupName);
 			$('#times').text(String(moment(response.reply.timeStart, 'X').format('h:mm A')) +
 				'-' + String(moment(response.reply.timeEnd, 'X').format('h:mm A')));
 			$('#location').text(response.reply.location);
 			$('#description').text(response.reply.description);
-			$('#attendance').text('over 9000 people attending');
+			$('#attendance').text(String(response.reply.members.length) + ' attending');
 		});
 	}
 };

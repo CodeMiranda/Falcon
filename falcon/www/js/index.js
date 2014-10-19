@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+var groups = [];
+
 function getListItems(callback) {
     $.get(config.serverUri + '/home', callback);
     /*var items = [
@@ -70,18 +73,41 @@ function groupItemFormat(item) {
         '<p class="list-group-item-paragraph">' + 
         moment(item.timeStart, 'X').format('h:mm A') + '-' + 
         moment(item.timeEnd, 'X').format('h:mm A') + '<br>' +
-        'over 9000 people attending' + '</p>' + 
+        String(item.numMembers) + ' attending' + '</p>' + 
         '</a>';
     return answer;
 }
 
+function resortList(index, asc) {
+    $('#items').empty();
+    groups = sort(groups, index, asc);
+    for (var i = 0; i < groups.length; i++) {
+        $('#items').append(groupItemFormat(groups[i]));
+    }
+}
+
 function initializeApp() {
     getListItems(function(response) {
-        console.log(response);
-        for (var i = 0; i < response.reply.length; i++) {
-            $('#items').append(groupItemFormat(response.reply[i]));
-        }
+        groups = response.reply;
+        resortList('numMembers', 0);
     });
+}
+
+function compare(item1, item2, index) {
+    if ((!item1[index] && (item1[index] !== 0)) || (!item2[index] && (item2[index] !== 0))) {
+        return 0;
+    }
+    if (item1[index] === item2[index]) {
+        return 0;
+    }
+    return (item1[index] < item2[index] ? -1 : 1);
+}
+
+function sort(items, index, asc) {
+    var toReturn = items.sort(function(item1, item2) {
+        return (asc > 0) ? compare(item1, item2, index) : -compare(item1, item2, index);
+    });
+    return toReturn;
 }
 
 var app = {
