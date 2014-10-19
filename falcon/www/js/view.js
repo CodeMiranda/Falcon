@@ -14,13 +14,13 @@ function getFromDatabase(id, callback)
 
 var group = {
 	initialize: function() {
-		getFromDatabase(0, function(response) {
-			console.log(response.reply);
-			/*$('#name').text(groupInfo.name);
-			$('#times').text(groupInfo.timeCreated + '-' + groupInfo.timeEnd);
-			$('#location').text(groupInfo.location);
-			$('#description').text(groupInfo.description);
-			$('#attendance').text('over 9000 people attending');*/
+		getFromDatabase(localStorage.getItem('groupID'), function(response) {
+			$('#name').text(response.reply.name);
+			$('#times').text(String(moment(response.reply.timeStart, 'X').format('h:mm A')) +
+				'-' + String(moment(response.reply.timeEnd, 'X').format('h:mm A')));
+			$('#location').text(response.reply.location);
+			$('#description').text(response.reply.description);
+			$('#attendance').text('over 9000 people attending');
 		});
 	}
 };

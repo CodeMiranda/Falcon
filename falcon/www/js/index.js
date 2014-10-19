@@ -65,10 +65,11 @@ function groupItemFormat(item) {
     answer += '<a href="javascript:void(0)" onclick="chooseGroup(' +
         String(item.id) +
         ')" class="list-group-item">' +
-        '<h4 class="list-group-item-heading">' + item.name + '</h4>' +
+        '<h4 class="list-group-item-heading">' + item.groupName + '</h4>' +
         '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
         '<p class="list-group-item-paragraph">' + 
-        item.timeStart + '-' + item.timeEnd + '<br>' +
+        moment(item.timeStart, 'X').format('h:mm A') + '-' + 
+        moment(item.timeEnd, 'X').format('h:mm A') + '<br>' +
         'over 9000 people attending' + '</p>' + 
         '</a>';
     return answer;
@@ -76,6 +77,7 @@ function groupItemFormat(item) {
 
 function initializeApp() {
     getListItems(function(response) {
+        console.log(response);
         for (var i = 0; i < response.reply.length; i++) {
             $('#items').append(groupItemFormat(response.reply[i]));
         }

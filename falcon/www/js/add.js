@@ -8,9 +8,8 @@ function submit_to_server() {
 		timeEnd: moment(document.forms["submission_form"]["timeEnd"].value, "HH:mm").unix()
 	}
 	//console.log(data);
-	targetServer = config.serverUri + '/add?' + $.params(data);
+	targetServer = config.serverUri + '/add?' + $.param(data);
 	$.post(targetServer, function(response) {
-		console.log(response);
-		//window.location.replace("index.html");
+		window.location.replace("index.html");
 	});
 }
