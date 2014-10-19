@@ -1,4 +1,4 @@
 function sign_out() {
-	window.localStorage.setItem("realname", null);
+	window.localStorage.setItem("userName", "");
 	window.location = "login.html";
 }

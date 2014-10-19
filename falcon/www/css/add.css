@@ -9,5 +9,8 @@
 
 .center {
 	text-align: center;
+}
+
+.top-padding {
 	padding-top: 20px;
 }
