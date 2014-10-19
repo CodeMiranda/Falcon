@@ -96,3 +96,7 @@ var app = {
 
     }
 };
+
+if (window.localStorage.getItem("realname") == null) {
+    window.location = "login.html";
+}
