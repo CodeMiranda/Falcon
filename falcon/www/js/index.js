@@ -24,7 +24,7 @@ function getListItems(callback) {
             name: 'Math 25',
             desc: 'Math 25 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         },
         {
@@ -32,7 +32,7 @@ function getListItems(callback) {
             name: 'Math 55',
             desc: 'Math 55 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         },
         {
@@ -40,7 +40,7 @@ function getListItems(callback) {
             name: 'CS 61',
             desc: 'CS 61 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         },
         {
@@ -48,7 +48,7 @@ function getListItems(callback) {
             name: 'SW 43',
             desc: 'SW 43 study group',
             location: 'Lamont',
-            timeCreated: 'now',
+            timeStart: 'now',
             timeEnd: 'tomorrow'
         }
     ];
@@ -60,15 +60,24 @@ function chooseGroup(id) {
     window.location.replace('view.html');
 }
 
+function groupItemFormat(item) {
+    var answer = '';
+    answer += '<a href="javascript:void(0)" onclick="chooseGroup(' +
+        String(item.id) +
+        ')" class="list-group-item">' +
+        '<h4 class="list-group-item-heading">' + item.name + '</h4>' +
+        '<h5 class="list-group-item-heading">' + item.location + '</h5>' +
+        '<p class="list-group-item-paragraph">' + 
+        item.timeStart + '-' + item.timeEnd + '<br>' +
+        'over 9000 people attending' + '</p>' + 
+        '</a>';
+    return answer;
+}
+
 function initializeApp() {
     getListItems(function(items) {
         for (var i = 0; i < items.length; i++) {
-            $('#items').append(
-                '<a href="javascript:void(0)" onclick="chooseGroup(' +
-                String(items[i].id) +
-                ')"><li class="list-group-item">' +
-                items[i].name + 
-                '</li></a>');
+            $('#items').append(groupItemFormat(items[i]));
         }
     });
 }

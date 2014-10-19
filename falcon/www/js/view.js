@@ -19,6 +19,7 @@ var group = {
 			$('#times').text(groupInfo.timeCreated + '-' + groupInfo.timeEnd);
 			$('#location').text(groupInfo.location);
 			$('#description').text(groupInfo.desc);
+			$('#attendance').text('over 9000 people attending');
 		});
 	}
 };
