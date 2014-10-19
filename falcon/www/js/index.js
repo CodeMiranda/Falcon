@@ -136,6 +136,13 @@ var app = {
     }
 };
 
-if (window.localStorage.getItem("realname") == null) {
-    window.location = "login.html";
+if (window.localStorage.getItem("userName") == null) {
+    //window.location = "login.html";
+    var userID = Math.floor((Math.random() * 3) + 1);
+    $.get(config.serverUri + '/users?id=' + String(userID), function(response) {
+        window.localStorage.setItem("userHandle", response.reply.handle);
+        window.localStorage.setItem("userID", response.reply.id);
+        window.localStorage.setItem("userName", response.reply.name);
+        window.localStorage.setItem("userPicture", response.reply.picture);
+    });
 }
