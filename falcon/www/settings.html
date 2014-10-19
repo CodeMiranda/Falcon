@@ -7,6 +7,7 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/settings.css" />
         <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <title>Home Screen</title>
     </head>
@@ -22,10 +23,17 @@
 		            </div>
                 </div>
             </nav>
-			<!-- <p>Sign out?</p> -->
-			<button onclick="sign_out()" class="btn btn-danger btn-large">Sign Out</button>
+            <div class="settings-content">
+                <h2>About Ensemble</h2>
+                <p>Ensemble helps you plan spontaneous get-togethers on the fly.  How many times have you wanted to do something but couldn't because didn't know how to find the right people?  Ensemble makes it easy to find them.  Whether it's a last-minute study group or a pickup game of ultimate frisbee, Ensemble helps you the people you need.</p>
+                <h4>The Ensemble Team</h4>
+                <p>Ensemble was built by Code Miranda: Dan Fu, Johnny Ho, Matthew Deutsch, and Max Levenson.</p>
+                <p><strong>Ensemble Version:</strong> <span id="version"></span></p>
+                <button onclick="sign_out()" class="btn btn-danger btn-large pull-right">Sign Out</button>
+            </div>
 		</div>
 		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="js/config.js"></script>
 		<script type="text/javascript" src="js/settings.js"></script>
 	</body>
 </html>
